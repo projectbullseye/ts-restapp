@@ -25,12 +25,16 @@ cp .env.example .env
 
 3. Edit `.env` with your MySQL connection details:
 
-```
+```ini
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=your_password
 DB_NAME=employees_db
 ```
+
+4. Do not commit `.env` to source control (already in `.gitignore`).
+
+5. For production, use your platform’s secret management (e.g., AWS Secrets Manager, Azure Key Vault, Kubernetes secret, etc.) and set environment variables accordingly.
 
 ### Installation
 
