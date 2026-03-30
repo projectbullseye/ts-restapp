@@ -243,6 +243,139 @@ Response:
 }
 ```
 
+## Order API Endpoints
+
+### GET /api/orders
+Returns a list of all orders. Optional query parameters: `status` or `customerEmail`.
+
+```bash
+# Get all orders
+curl http://localhost:3000/api/orders
+
+# Get orders by status
+curl "http://localhost:3000/api/orders?status=pending"
+
+# Get orders by customer email
+curl "http://localhost:3000/api/orders?customerEmail=alice.johnson@example.com"
+```
+
+Response:
+```json
+[
+  {
+    "id": 1,
+    "customerName": "Alice Johnson",
+    "customerEmail": "alice.johnson@example.com",
+    "productName": "Laptop",
+    "quantity": 1,
+    "totalAmount": 1299.99,
+    "status": "delivered",
+    "orderDate": "2024-03-29T10:00:00.000Z"
+  }
+]
+```
+
+### GET /api/orders/:id
+Returns a specific order by ID.
+
+```bash
+curl http://localhost:3000/api/orders/1
+```
+
+Response:
+```json
+{
+  "id": 1,
+  "customerName": "Alice Johnson",
+  "customerEmail": "alice.johnson@example.com",
+  "productName": "Laptop",
+  "quantity": 1,
+  "totalAmount": 1299.99,
+  "status": "delivered",
+  "orderDate": "2024-03-29T10:00:00.000Z"
+}
+```
+
+### POST /api/orders
+Creates a new order.
+
+```bash
+curl -X POST http://localhost:3000/api/orders \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customerName": "Eve Davis",
+    "customerEmail": "eve.davis@example.com",
+    "productName": "Headphones",
+    "quantity": 1,
+    "totalAmount": 199.99,
+    "status": "pending"
+  }'
+```
+
+Response:
+```json
+{
+  "id": 5,
+  "customerName": "Eve Davis",
+  "customerEmail": "eve.davis@example.com",
+  "productName": "Headphones",
+  "quantity": 1,
+  "totalAmount": 199.99,
+  "status": "pending",
+  "orderDate": "2024-03-29T12:30:00.000Z"
+}
+```
+
+### PUT /api/orders/:id
+Updates an existing order.
+
+```bash
+curl -X PUT http://localhost:3000/api/orders/1 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "status": "shipped",
+    "quantity": 2
+  }'
+```
+
+Response:
+```json
+{
+  "id": 1,
+  "customerName": "Alice Johnson",
+  "customerEmail": "alice.johnson@example.com",
+  "productName": "Laptop",
+  "quantity": 2,
+  "totalAmount": 1299.99,
+  "status": "shipped",
+  "orderDate": "2024-03-29T10:00:00.000Z"
+}
+```
+
+### DELETE /api/orders/:id
+Deletes an order by ID.
+
+```bash
+curl -X DELETE http://localhost:3000/api/orders/1
+```
+
+Response:
+```json
+{
+  "message": "Order deleted successfully",
+  "order": {
+    "id": 1,
+    "customerName": "Alice Johnson",
+    "customerEmail": "alice.johnson@example.com",
+    "productName": "Laptop",
+    "quantity": 1,
+    "totalAmount": 1299.99,
+    "status": "delivered",
+    "orderDate": "2024-03-29T10:00:00.000Z"
+  }
+}
+```
+
 ## Project Structure
 
 ```
